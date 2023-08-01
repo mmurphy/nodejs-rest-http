@@ -33,4 +33,21 @@ app.use('/api/greeting', (request, response) => {
   response.send({ content: `Hello, ${name || 'World!'}` });
 });
 
+const books = [
+  {"id":0,"title":"Book 0"},
+  {"id":1,"title":"Book 1"},
+  {"id":2,"title":"Book 2"},
+];
+
+app.get('/api/book', (request, response) => {
+  const name = request.query ? request.query.name : undefined;
+  response.send({ content: books });
+});
+
+app.get('/api/book/:id', (request, response) => {
+  const bookId = request.params ? request.params.id : undefined;
+  response.send({ content: books[bookId] });
+});
+
+
 module.exports = app;
