@@ -50,4 +50,24 @@ app.get('/api/book/:id', (request, response) => {
 });
 
 
+var books_v2 = [];
+
+for( let i in books ) {
+  let b = books[i];
+  books_v2.push({id:b.id, title:b.title,author:"author of "+b.title});
+}
+
+console.log (books_v2);
+
+app.get('/newapi/book', (request, response) => {
+  const name = request.query ? request.query.name : undefined;
+  response.send({ content: books_v2 });
+});
+
+app.get('/newapi/book/:id', (request, response) => {
+  const bookId = request.params ? request.params.id : undefined;
+  response.send({ content: books_v2[bookId] });
+});
+
+
 module.exports = app;
