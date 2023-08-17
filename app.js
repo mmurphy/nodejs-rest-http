@@ -70,4 +70,24 @@ app.get('/newapi/book/:id', (request, response) => {
 });
 
 
+var books_v3 = [];
+
+for( let i in books_v2 ) {
+  let b = books_v2[i];
+  books_v3.push({id:b.id, title:b.title,author:b.author,thirdApiField:"Just another change for - "+b.title});
+}
+
+console.log (books_v3);
+
+app.get('/thirdapi/book', (request, response) => {
+  const name = request.query ? request.query.name : undefined;
+  response.send({ content: books_v3 });
+});
+
+app.get('/thirdapi/book/:id', (request, response) => {
+  const bookId = request.params ? request.params.id : undefined;
+  response.send({ content: books_v3[bookId] });
+});
+
+
 module.exports = app;
